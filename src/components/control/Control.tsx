@@ -1,17 +1,18 @@
-const Control = ({ tool, setTool }: any) => {
-  const handleOnChange = (e: any) => {
+import { IControlType } from './types';
+const Control = ({ tool, setTool }: IControlType) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTool(e.target.value);
   };
 
   return (
-    <div style={{ position: "absolute", top: 0 }}>
+    <div style={{ position: 'absolute', top: 0 }}>
       <div>
         <input
           type="radio"
           id="cursor"
           name="control"
           value="cursor"
-          checked={tool === "cursor"}
+          checked={tool === 'cursor'}
           onChange={handleOnChange}
         />
         <label htmlFor="cursor">Взаимодействие</label>
@@ -23,7 +24,7 @@ const Control = ({ tool, setTool }: any) => {
           id="shape"
           name="control"
           value="shape"
-          checked={tool === "shape"}
+          checked={tool === 'shape'}
           onChange={handleOnChange}
         />
         <label htmlFor="shape">Добавление</label>
