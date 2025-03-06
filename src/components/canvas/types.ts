@@ -1,4 +1,4 @@
-import { MutableRefObject } from 'react';
+import { MutableRefObject, RefObject } from 'react';
 
 export interface IFigureType {
   id: Date;
@@ -12,5 +12,5 @@ export interface IFigureType {
 }
 export interface ICanvasPropsType {
   tool: string;
-  stageRef: MutableRefObject<null>;
+  stageRef: RefObject<MutableRefObject<null>>;
 }

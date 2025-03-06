@@ -2,12 +2,12 @@ import { SetStateAction, useState } from 'react';
 import { Layer, Stage } from 'react-konva';
 import Shape from '../shape/Shape';
 import { IFigureType, ICanvasPropsType } from './types';
+import { KonvaEventObject, NodeConfig } from 'konva/lib/Node';
 
 const Canvas = ({ tool, stageRef }: ICanvasPropsType) => {
   const [figures, setFigures] = useState<Array<IFigureType>>([]);
 
-  const handleOnClick = (e: Event) => {
-    console.log(stageRef);
+  const handleOnClick = (e: KonvaEventObject<MouseEvent, Node<NodeConfig>>) => {
     if (tool === 'cursor') return;
     const stage = e.target.getStage();
     const stageOffset = stage.absolutePosition();
