@@ -1,25 +1,32 @@
-import html2canvas from "html2canvas";
-import Konva from "konva";
-import { useEffect, useRef, useState } from "react";
-import { Group, Rect } from "react-konva";
-import { Html } from "react-konva-utils";
-import HtmlText from "../htmlText/HtmlText";
+import html2canvas from 'html2canvas';
+import Konva from 'konva';
+import {
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { Group, Rect } from 'react-konva';
+import { Html } from 'react-konva-utils';
+import HtmlText from '../htmlText/HtmlText';
+import { IShapeProps } from './types';
 
-const Shape = (props: any) => {
+const Shape = (props: IShapeProps) => {
   const { x, y, width, height, tool, html, id, text } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(text);
 
-  const groupRef = useRef<any>(null);
-  const imageRef = useRef<any>(null);
-  const htmlRef = useRef<any>(null);
+  const groupRef = useRef<RefObject<MutableRefObject<null>>>(null);
+  const imageRef = useRef<RefObject<MutableRefObject<null>>>(null);
+  const htmlRef = useRef<RefObject<MutableRefObject<null>>>(null);
   const renderImage = async () => {
     const htmltext = document.getElementById(`htmltext_${id}`);
     if (htmltext) {
       const innerhtml = htmltext.innerHTML;
       if (innerhtml) {
         const canvas = await html2canvas(htmltext, {
-          backgroundColor: "rgba(0,0,0,0)",
+          backgroundColor: 'rgba(0,0,0,0)',
         });
         const shape = new Konva.Image({
           x: 0,
@@ -39,7 +46,7 @@ const Shape = (props: any) => {
   }, []);
 
   const handleClick = () => {
-    if (tool === "shape") {
+    if (tool === 'shape') {
       return;
     } else {
       setIsEditing((prev) => !prev);
@@ -53,14 +60,14 @@ const Shape = (props: any) => {
     }
   };
 
-  const handleInput = (e: any) => {
+  const handleInput = (e: Event) => {
     setValue(e.target.value);
   };
 
   return (
     <>
       <Group x={x} y={y} onClick={handleClick} ref={groupRef} draggable>
-        <Rect stroke={"black"} width={width} height={height} />
+        <Rect stroke={'black'} width={width} height={height} />
         {isEditing && (
           <Html>
             <textarea value={value} onChange={handleInput} />

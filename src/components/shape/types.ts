@@ -1,16 +1,13 @@
 import { MutableRefObject, RefObject } from 'react';
 
-export interface IFigureType {
+export interface IShapeProps {
   id: Date;
   width: number;
   height: number;
-  type: string;
   x: number;
   y: number;
+  tool: string;
   html: string;
   text: string;
-}
-export interface ICanvasPropsType {
-  tool: string;
   stageRef: RefObject<MutableRefObject<null>>;
 }
