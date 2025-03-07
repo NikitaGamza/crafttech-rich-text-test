@@ -1,13 +1,13 @@
 import html2canvas from 'html2canvas';
 import Konva from 'konva';
 import {
-  MutableRefObject,
-  RefObject,
+  ChangeEventHandler,
+  LegacyRef,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import { Group, Rect } from 'react-konva';
+import { Group, Rect, Text } from 'react-konva';
 import { Html } from 'react-konva-utils';
 import HtmlText from '../htmlText/HtmlText';
 import { IShapeProps } from './types';
@@ -17,9 +17,9 @@ const Shape = (props: IShapeProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(text);
 
-  const groupRef = useRef<RefObject<MutableRefObject<null>>>(null);
-  const imageRef = useRef<RefObject<MutableRefObject<null>>>(null);
-  const htmlRef = useRef<RefObject<MutableRefObject<null>>>(null);
+  const groupRef = useRef<Konva.Group>(null);
+  const imageRef = useRef<Konva.Image | null>(null);
+  const htmlRef: LegacyRef<HTMLDivElement> = useRef(null);
   const renderImage = async () => {
     const htmltext = document.getElementById(`htmltext_${id}`);
     if (htmltext) {
@@ -35,7 +35,9 @@ const Shape = (props: IShapeProps) => {
           scaleY: 1 / window.devicePixelRatio,
           image: canvas,
         });
-        groupRef.current.add(shape);
+        if (groupRef.current) {
+          groupRef.current.add(shape);
+        }
         imageRef.current = shape;
       } else return;
     } else return;
@@ -60,14 +62,18 @@ const Shape = (props: IShapeProps) => {
     }
   };
 
-  const handleInput = (e: Event) => {
+  const handleInput: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setValue(e.target.value);
   };
 
   return (
     <>
       <Group x={x} y={y} onClick={handleClick} ref={groupRef} draggable>
-        <Rect stroke={'black'} width={width} height={height} />
+        {value ? (
+          <Text text={value} x={100} y={100} />
+        ) : (
+          <Rect stroke={'black'} width={width} height={height} />
+        )}
         {isEditing && (
           <Html>
             <textarea value={value} onChange={handleInput} />

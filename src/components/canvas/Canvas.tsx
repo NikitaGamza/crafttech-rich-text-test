@@ -1,26 +1,34 @@
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { Layer, Stage } from 'react-konva';
 import Shape from '../shape/Shape';
 import { IFigureType, ICanvasPropsType } from './types';
-import { KonvaEventObject, NodeConfig } from 'konva/lib/Node';
+import { KonvaEventObject } from 'konva/lib/Node';
+import Konva from 'konva';
 
 const Canvas = ({ tool, stageRef }: ICanvasPropsType) => {
   const [figures, setFigures] = useState<Array<IFigureType>>([]);
-
-  const handleOnClick = (e: KonvaEventObject<MouseEvent, Node<NodeConfig>>) => {
+  var text = new Konva.Text({
+    x: 10,
+    y: 15,
+    text: 'Simple Text',
+    fontSize: 30,
+    fontFamily: 'Calibri',
+    fill: 'green',
+  });
+  const handleOnClick = (e: KonvaEventObject<MouseEvent>) => {
     if (tool === 'cursor') return;
     const stage = e.target.getStage();
-    const stageOffset = stage.absolutePosition();
-    const point = stage.getPointerPosition();
-    setFigures((prev: SetStateAction<IFigureType[]>) => [
+    const stageOffset = stage && stage.absolutePosition();
+    const point = stage && stage.getPointerPosition();
+    setFigures((prev: Array<IFigureType | any>) => [
       ...prev,
       {
         id: Date.now().toString(36),
         width: 100,
         height: 100,
         type: 'rect',
-        x: point.x - stageOffset.x,
-        y: point.y - stageOffset.y,
+        x: point && stageOffset && point.x - stageOffset.x,
+        y: point && stageOffset && point.y - stageOffset.y,
         html: '',
         text: '',
       },

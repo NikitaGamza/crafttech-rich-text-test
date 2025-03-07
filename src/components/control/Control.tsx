@@ -1,4 +1,5 @@
 import { IControlType } from './types';
+import style from './Control.module.scss';
 const Control = ({ tool, setTool }: IControlType) => {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTool(e.target.value);
@@ -15,7 +16,9 @@ const Control = ({ tool, setTool }: IControlType) => {
           checked={tool === 'cursor'}
           onChange={handleOnChange}
         />
-        <label htmlFor="cursor">Взаимодействие</label>
+        <label className={style.label} htmlFor="cursor">
+          Взаимодействие
+        </label>
       </div>
 
       <div>
@@ -27,7 +30,9 @@ const Control = ({ tool, setTool }: IControlType) => {
           checked={tool === 'shape'}
           onChange={handleOnChange}
         />
-        <label htmlFor="shape">Добавление</label>
+        <label className={style.label} htmlFor="shape">
+          Добавление
+        </label>
       </div>
     </div>
   );

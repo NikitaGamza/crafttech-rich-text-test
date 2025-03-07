@@ -1,7 +1,7 @@
-import { MutableRefObject, RefObject } from 'react';
+import { MutableRefObject } from 'react';
 
 export interface IShapeProps {
-  id: Date;
+  id: string;
   width: number;
   height: number;
   x: number;
@@ -9,5 +9,5 @@ export interface IShapeProps {
   tool: string;
   html: string;
   text: string;
-  stageRef: RefObject<MutableRefObject<null>>;
+  stageRef: MutableRefObject<null> | null;
 }
