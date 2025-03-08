@@ -3,18 +3,9 @@ import { Layer, Stage } from 'react-konva';
 import Shape from '../shape/Shape';
 import { IFigureType, ICanvasPropsType } from './types';
 import { KonvaEventObject } from 'konva/lib/Node';
-import Konva from 'konva';
 
 const Canvas = ({ tool, stageRef }: ICanvasPropsType) => {
   const [figures, setFigures] = useState<Array<IFigureType>>([]);
-  var text = new Konva.Text({
-    x: 10,
-    y: 15,
-    text: 'Simple Text',
-    fontSize: 30,
-    fontFamily: 'Calibri',
-    fill: 'green',
-  });
   const handleOnClick = (e: KonvaEventObject<MouseEvent>) => {
     if (tool === 'cursor') return;
     const stage = e.target.getStage();

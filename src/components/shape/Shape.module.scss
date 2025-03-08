@@ -1,0 +1,9 @@
+.edit {
+  display: flex;
+  flex-direction: column;
+  background-color: #e7e6e6;
+  &__head {
+    padding: 0;
+    margin: 0;
+  }
+}
