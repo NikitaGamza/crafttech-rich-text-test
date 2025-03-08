@@ -1,10 +1,10 @@
-import { useRef, useState } from "react";
-import "./App.css";
-import Canvas from "./components/canvas/Canvas";
-import Control from "./components/control/Control";
+import { useRef, useState } from 'react';
+import './App.css';
+import Canvas from './components/canvas/Canvas';
+import Control from './components/control/Control';
 
 function App() {
-  const [tool, setTool] = useState("cursor");
+  const [tool, setTool] = useState('cursor');
   const stageRef = useRef(null);
   return (
     <>

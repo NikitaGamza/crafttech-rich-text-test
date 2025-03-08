@@ -1,26 +1,27 @@
-import { useState } from "react";
-import { Layer, Stage } from "react-konva";
-import Shape from "../shape/Shape";
+import { useState } from 'react';
+import { Layer, Stage } from 'react-konva';
+import Shape from '../shape/Shape';
+import { IFigureType, ICanvasPropsType } from './types';
+import { KonvaEventObject } from 'konva/lib/Node';
 
-const Canvas = ({ tool, stageRef }: any) => {
-  const [figures, setFigures] = useState<any>([]);
-
-  const handleOnClick = (e: any) => {
-    if (tool === "cursor") return;
+const Canvas = ({ tool, stageRef }: ICanvasPropsType) => {
+  const [figures, setFigures] = useState<Array<IFigureType>>([]);
+  const handleOnClick = (e: KonvaEventObject<MouseEvent>) => {
+    if (tool === 'cursor') return;
     const stage = e.target.getStage();
-    const stageOffset = stage.absolutePosition();
-    const point = stage.getPointerPosition();
-    setFigures((prev: any) => [
+    const stageOffset = stage && stage.absolutePosition();
+    const point = stage && stage.getPointerPosition();
+    setFigures((prev: Array<IFigureType | any>) => [
       ...prev,
       {
         id: Date.now().toString(36),
         width: 100,
         height: 100,
-        type: "rect",
-        x: point.x - stageOffset.x,
-        y: point.y - stageOffset.y,
-        html: "",
-        text: "",
+        type: 'rect',
+        x: point && stageOffset && point.x - stageOffset.x,
+        y: point && stageOffset && point.y - stageOffset.y,
+        html: '',
+        text: '',
       },
     ]);
   };
@@ -29,12 +30,12 @@ const Canvas = ({ tool, stageRef }: any) => {
     <Stage
       width={window.innerWidth}
       height={window.innerHeight}
-      draggable={tool === "cursor"}
+      draggable={tool === 'cursor'}
       onClick={handleOnClick}
       ref={stageRef}
     >
       <Layer>
-        {figures.map((figure: any, i: number) => {
+        {figures.map((figure: IFigureType, i: number) => {
           return <Shape key={i} {...figure} stageRef={stageRef} tool={tool} />;
         })}
       </Layer>
