@@ -108,7 +108,7 @@ const Shape = (props: IShapeProps) => {
                 value={value}
                 onChange={handleInput}
               />
-              <label htmlFor={`fontSize__${id}`}>Выберите размер шрифта</label>
+              <label htmlFor={`fontSize__${id}`}>Размер шрифта</label>
               <input
                 type="number"
                 onChange={(e) => setFontSize(e.target.value)}
